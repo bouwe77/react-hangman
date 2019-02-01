@@ -10,8 +10,6 @@ class StringUtils {
         newStr = newStr.replace(character, replaceBy);
       }
     }
-
-    console.log(newStr);
     return newStr;
   }
 }

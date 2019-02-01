@@ -9,15 +9,15 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.maxAttempts = 5;
-    this.words = ["hoi", "hallo", "moio"];
+    this.maxAttempts = 5;
+    this.words = ["hallo"];
 
     this.state = {
       solution: "",
       currentlyGuessed: "",
       gameOver: true,
       //  attempts: 0,
-      chosenLetters: "ABC"
+      chosenLetters: ""
     };
   }
 
@@ -36,14 +36,13 @@ class Container extends React.Component {
     if (letter.length !== 1 || !/[a-z]/i.test(letter)) return;
 
     // Check letter already has been guessed.
-    if (StringUtils.containsCaseInsensitive(this.state.shosenLetters, letter))
+    if (StringUtils.containsCaseInsensitive(this.state.chosenLetters, letter))
       return;
+    console.log(letter);
 
     // Add letter to chosenLetters
     let chosenLetters = this.state.chosenLetters;
     this.setState({ chosenLetters: (chosenLetters += letter) });
-
-    console.log(letter);
 
     // Check solution contains letter. If so:
     let solutionContainsLetter = StringUtils.containsCaseInsensitive(
@@ -51,14 +50,26 @@ class Container extends React.Component {
       letter
     );
     if (solutionContainsLetter) {
-      let guessed = this.state.currentlyGuessed;
-      guessed = guessed.replace();
-      //  - replace letter in guessed word
-      // . - if guessed word is equal to solution: game over
+      // Reset the currently guessed word by only showing the already guessed characters.
+      let guessed = StringUtils.replaceCharacters(
+        this.state.solution,
+        "*",
+        this.state.chosenLetters
+      );
+      this.setState({ currentlyGuessed: guessed });
+
+      // If the guessed word is equal to the solution: game over.
+      if (this.state.currentlyGuessed === this.state.solution) {
+        this.setState({ gameOver: true });
+      }
     } else {
-      // . - attempts++
-      // . - add to chosenLetters
-      // . - check attempts against max: game over if max reached
+      let attempts = this.state.attempts + 1;
+      this.setState({ attempts });
+
+      // If max attempts reached: game over.
+      if (attempts > this.maxAttempts) {
+        this.setState({ gameOver: true });
+      }
     }
   };
 
