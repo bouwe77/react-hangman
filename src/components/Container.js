@@ -1,3 +1,5 @@
+//TODO ergens ervoor zorgen dat er woorden worden gekozen van minstens 1 letter en alleen a..z bevatten.
+
 import React from "react";
 
 import Hangman from "./Hangman";
@@ -14,7 +16,6 @@ class Container extends React.Component {
       currentlyGuessed: "",
       gameOver: true,
       //  attempts: 0,
-      //  correctLetters: [],
       incorrectLetters: ""
     };
   }
@@ -29,7 +30,20 @@ class Container extends React.Component {
     return this.words[Math.floor(Math.random() * this.words.length)];
   };
 
-  applyLetter = letter => {};
+  applyLetter = letter => {
+    // Check for A..Z, if not: return
+    //
+    // Check letter already has been guessed in both incorrectLetters and guessedWord, if so: return
+    //
+    // Check solution contains letter. If so:
+    //  - replace letter in guessed word
+    // . - if guessed word is equal to solution: game over
+    //
+    // If solution does not contain letter:
+    // . - attempts++
+    // . - add to incorrectLetters
+    // . - check attempts against max: game over if max reached
+  };
 
   render() {
     return <Hangman {...this.state} startNewGame={this.startNewGame} />;
