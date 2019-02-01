@@ -3,14 +3,16 @@ import React from "react";
 class Letter extends React.Component {
   handleClick = e => {
     e.preventDefault();
-    console.log("The link was clicked.");
+    console.log(e.target.innerText + " was clicked.");
   };
 
   render() {
     return (
-      <a href="#" onClick={this.handleClick}>
-        {this.props.letter}
-      </a>
+      <li>
+        <a href="#" onClick={this.handleClick}>
+          {this.props.letter}
+        </a>
+      </li>
     );
   }
 }
