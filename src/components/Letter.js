@@ -3,16 +3,18 @@ import React from "react";
 class Letter extends React.Component {
   handleClick = e => {
     e.preventDefault();
-    console.log(e.target.innerText + " was clicked.");
+    this.props.chooseLetter(e.target.innerText);
   };
 
   render() {
     return (
-      <li>
-        <a href="#" onClick={this.handleClick}>
-          {this.props.letter}
-        </a>
-      </li>
+      <button
+        onClick={this.handleClick}
+        disabled={this.props.disabled}
+        className="letter-button"
+      >
+        {this.props.letter}
+      </button>
     );
   }
 }

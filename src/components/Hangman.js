@@ -2,15 +2,16 @@ import React from "react";
 
 import StartNewGame from "./StartNewGame";
 import Word from "./Word";
-import IncorrectLetters from "./IncorrectLetters";
-import ChooseLetter from "./ChooseLetter";
+import Letters from "./Letters";
 
 const Hangman = props => {
   return (
     <div>
       <Word currentlyGuessed={props.currentlyGuessed} />
-      <ChooseLetter />
-      <IncorrectLetters incorrectLetters={props.incorrectLetters} />
+      <Letters
+        chosenLetters={props.chosenLetters}
+        chooseLetter={props.chooseLetter}
+      />
       <StartNewGame startNewGame={props.startNewGame} />
     </div>
   );

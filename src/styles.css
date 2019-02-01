@@ -1,0 +1,4 @@
+.letter-button:disabled {
+  color: gray;
+  text-decoration: line-through;
+}

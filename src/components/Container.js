@@ -3,6 +3,7 @@
 import React from "react";
 
 import Hangman from "./Hangman";
+import StringUtils from "../utils/StringUtils";
 
 class Container extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Container extends React.Component {
       currentlyGuessed: "",
       gameOver: true,
       //  attempts: 0,
-      incorrectLetters: ""
+      chosenLetters: "ABC"
     };
   }
 
@@ -30,23 +31,45 @@ class Container extends React.Component {
     return this.words[Math.floor(Math.random() * this.words.length)];
   };
 
-  applyLetter = letter => {
-    // Check for A..Z, if not: return
-    //
-    // Check letter already has been guessed in both incorrectLetters and guessedWord, if so: return
-    //
+  chooseLetter = letter => {
+    // Check for 1 letter A..Z,
+    if (letter.length !== 1 || !/[a-z]/i.test(letter)) return;
+
+    // Check letter already has been guessed.
+    if (StringUtils.containsCaseInsensitive(this.state.shosenLetters, letter))
+      return;
+
+    // Add letter to chosenLetters
+    let chosenLetters = this.state.chosenLetters;
+    this.setState({ chosenLetters: (chosenLetters += letter) });
+
+    console.log(letter);
+
     // Check solution contains letter. If so:
-    //  - replace letter in guessed word
-    // . - if guessed word is equal to solution: game over
-    //
-    // If solution does not contain letter:
-    // . - attempts++
-    // . - add to incorrectLetters
-    // . - check attempts against max: game over if max reached
+    let solutionContainsLetter = StringUtils.containsCaseInsensitive(
+      this.state.solution,
+      letter
+    );
+    if (solutionContainsLetter) {
+      let guessed = this.state.currentlyGuessed;
+      guessed = guessed.replace();
+      //  - replace letter in guessed word
+      // . - if guessed word is equal to solution: game over
+    } else {
+      // . - attempts++
+      // . - add to chosenLetters
+      // . - check attempts against max: game over if max reached
+    }
   };
 
   render() {
-    return <Hangman {...this.state} startNewGame={this.startNewGame} />;
+    return (
+      <Hangman
+        {...this.state}
+        startNewGame={this.startNewGame}
+        chooseLetter={this.chooseLetter}
+      />
+    );
   }
 }
 
