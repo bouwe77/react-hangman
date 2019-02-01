@@ -1,5 +1,5 @@
 import React from "react";
 
-const Word = props => <div>{props.word}</div>;
+const Word = props => <div>{props.currentlyGuessed}</div>;
 
 export default Word;

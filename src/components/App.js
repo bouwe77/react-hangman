@@ -1,12 +1,12 @@
 import React from "react";
 
 import Header from "./Header";
-import Hangman from "./Hangman";
+import Container from "./Container";
 
 const App = () => (
   <div className="App">
     <Header />
-    <Hangman />
+    <Container />
   </div>
 );
 
