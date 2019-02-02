@@ -11,6 +11,8 @@ const Letters = props => {
       letter
     );
 
+    //TODO 2D array maken zodat ik er een <br/> in kan zetten?
+
     letters.push(
       <Letter
         key={letter}

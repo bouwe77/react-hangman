@@ -21,6 +21,10 @@ class Container extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.startNewGame();
+  }
+
   startNewGame = () => {
     let randomWord = this.pickRandomWord();
     let currentlyGuessed = "*".repeat(randomWord.length);
@@ -38,11 +42,12 @@ class Container extends React.Component {
     // Check letter already has been guessed.
     if (StringUtils.containsCaseInsensitive(this.state.chosenLetters, letter))
       return;
-    console.log(letter);
 
     // Add letter to chosenLetters
-    let chosenLetters = this.state.chosenLetters;
-    this.setState({ chosenLetters: (chosenLetters += letter) });
+    let chosenLetters = this.state.chosenLetters + letter;
+    this.setState({ chosenLetters: chosenLetters });
+
+    console.log(letter);
 
     // Check solution contains letter. If so:
     let solutionContainsLetter = StringUtils.containsCaseInsensitive(
@@ -54,7 +59,7 @@ class Container extends React.Component {
       let guessed = StringUtils.replaceCharacters(
         this.state.solution,
         "*",
-        this.state.chosenLetters
+        chosenLetters
       );
       this.setState({ currentlyGuessed: guessed });
 

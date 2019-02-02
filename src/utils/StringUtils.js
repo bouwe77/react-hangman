@@ -5,6 +5,7 @@ class StringUtils {
 
   static replaceCharacters(str, replaceBy, exceptCharacters = "") {
     let newStr = str;
+    console.log("except:", exceptCharacters);
     for (let character of str) {
       if (!StringUtils.containsCaseInsensitive(exceptCharacters, character)) {
         newStr = newStr.replace(character, replaceBy);
