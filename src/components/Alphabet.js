@@ -3,7 +3,7 @@ import React from "react";
 import Letter from "./Letter";
 import StringUtils from "../utils/StringUtils";
 
-const Letters = props => {
+const Alphabet = props => {
   let letters = [];
   for (const [letter] of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
     let letterAlreadyChosen = StringUtils.containsCaseInsensitive(
@@ -26,4 +26,4 @@ const Letters = props => {
   return <div width="50">{letters}</div>;
 };
 
-export default Letters;
+export default Alphabet;
